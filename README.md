@@ -52,20 +52,9 @@ cd codex-now
 
 ## 使用
 
-安装完成后，不建议每次都去 `/Applications` 里双击。更顺手的做法是把 `Codex Now.app` 固定到 Dock，或者放到 Finder 工具栏。
+安装完成后，推荐把 `Codex Now.app` 放到 Finder 工具栏。之后进入任何项目文件夹时，点一下工具栏图标即可启动 Codex。
 
-### 方式一：拖到 Dock
-
-![把 Codex Now 拖到 Dock](assets/usage-dock.svg)
-
-1. 打开 `/Applications`。
-2. 找到 `Codex Now.app`。
-3. 把 `Codex Now.app` 拖到 Dock。
-4. 之后使用时，先打开 Finder 并进入你想运行 Codex 的项目文件夹。
-5. 点击 Dock 里的 `Codex Now` 图标。
-6. Terminal 会在当前 Finder 文件夹打开，并自动运行 `codex --dangerously-bypass-approvals-and-sandbox`。
-
-### 方式二：按住 Command，拖到 Finder 工具栏
+### 按住 Command，拖到 Finder 工具栏
 
 ![把 Codex Now 拖到 Finder 工具栏](assets/usage-finder-toolbar.svg)
 
