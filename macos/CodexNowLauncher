@@ -33,11 +33,18 @@ source_shell_config() {
 finder_front_directory() {
     osascript -e '
         tell application "Finder"
+            set currentPath to ""
             try
-                return POSIX path of (target of front window as alias)
-            on error
-                return ""
+                if (count of Finder windows) > 0 then
+                    set currentPath to POSIX path of (target of front window as alias)
+                end if
             end try
+            if currentPath is "" then
+                try
+                    set currentPath to POSIX path of (insertion location as alias)
+                end try
+            end if
+            return currentPath
         end tell
     ' 2>/dev/null
 }
@@ -50,14 +57,10 @@ resolve_target_dir() {
         log "finder front directory: $TARGET_DIR"
     fi
 
-    if [ -z "$TARGET_DIR" ] && [ -f "$LAST_DIR_FILE" ]; then
-        TARGET_DIR=$(cat "$LAST_DIR_FILE")
-        log "fallback last directory: $TARGET_DIR"
-    fi
-
     if [ -z "$TARGET_DIR" ]; then
-        TARGET_DIR="$HOME"
-        log "fallback home directory: $TARGET_DIR"
+        log "error: could not determine Finder directory"
+        osascript -e "display alert \"Codex Now Error\" message \"Could not determine the current Finder folder. Please open a Finder window in the target folder, then try again.\"" >/dev/null 2>&1 || true
+        exit 1
     fi
 
     if [ ! -d "$TARGET_DIR" ]; then

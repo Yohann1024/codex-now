@@ -137,7 +137,7 @@ show_done() {
     echo "Tips:"
     echo "  • Drag Codex Now.app to the Dock for one-click launch."
     echo "  • Command-drag it to Finder toolbar for folder-context launching."
-    echo "  • Last directory is saved in ~/.codex-now-last-dir."
+    echo "  • Last launched directory is recorded in ~/.codex-now-last-dir for debugging."
 }
 
 check_system
