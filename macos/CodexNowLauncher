@@ -8,7 +8,7 @@ CODEX_COMMAND='codex --dangerously-bypass-approvals-and-sandbox'
 LOG_DIR="$HOME/Library/Logs/Codex Now"
 LOG_FILE="$LOG_DIR/launcher.log"
 AUTO_CONFIRM_TIMEOUT="${CODEX_NOW_CONFIRM_TIMEOUT:-5}"
-AUTO_CONFIRM_INTERVAL="${CODEX_NOW_CONFIRM_INTERVAL:-0.1}"
+AUTO_CONFIRM_INTERVAL="${CODEX_NOW_CONFIRM_INTERVAL:-0.35}"
 
 log() {
     mkdir -p "$LOG_DIR"
@@ -91,14 +91,15 @@ open_terminal_and_run_codex() {
     osascript_output=$(osascript <<EOF2 2>&1
 tell application "Terminal"
     activate
-    set codexTab to do script "cd " & quoted form of "$TARGET_DIR" & " && $CODEX_COMMAND"
+    do script "cd " & quoted form of "$TARGET_DIR" & " && $CODEX_COMMAND"
+    set codexWindow to front window
     set maxChecks to ($AUTO_CONFIRM_TIMEOUT / $AUTO_CONFIRM_INTERVAL) as integer
     set didConfirm to false
     repeat with checkIndex from 1 to maxChecks
         delay $AUTO_CONFIRM_INTERVAL
-        set tabContents to contents of codexTab
+        set tabContents to contents of selected tab of codexWindow
         if tabContents contains "Do you trust" or tabContents contains "Yes, continue" then
-            do script "1" in codexTab
+            do script "1" in selected tab of codexWindow
             set didConfirm to true
             exit repeat
         end if
