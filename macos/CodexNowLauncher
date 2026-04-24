@@ -87,9 +87,9 @@ open_terminal_and_run_codex() {
     osascript_output=$(osascript <<EOF2 2>&1
 tell application "Terminal"
     activate
-    do script "cd " & quoted form of "$TARGET_DIR" & " && $CODEX_COMMAND"
+    set codexTab to do script "cd " & quoted form of "$TARGET_DIR" & " && $CODEX_COMMAND"
     delay $AUTO_CONFIRM_DELAY
-    do script "1" in selected tab of front window
+    do script "1" in codexTab
 end tell
 EOF2
 )
