@@ -22,7 +22,7 @@ codex --dangerously-bypass-approvals-and-sandbox
 Codex Now 把这些步骤压缩成一次点击：
 
 1. 在 Finder 里进入你要工作的项目文件夹。
-2. 点击 Dock 或 Finder 工具栏里的 `Codex Now` 图标。
+2. 点击 Finder 工具栏里的 `Codex Now` 图标。
 3. Terminal 自动在当前文件夹打开，并自动启动 Codex。
 
 适合经常在不同项目目录之间切换、懒得反复打开终端和输入命令的人。
@@ -33,7 +33,7 @@ Codex Now 把这些步骤压缩成一次点击：
 - 打开 macOS Terminal，而不是 Codex 桌面 App
 - 自动执行 `codex --dangerously-bypass-approvals-and-sandbox`
 - 自动输入 `1` 并回车，确认 Codex CLI 的目录信任提示
-- 可拖到 Dock 或 Finder 工具栏使用
+- 可固定到 Finder 工具栏使用
 - 使用 `assets/icon.jpg` 生成 App 图标
 
 ## 安装

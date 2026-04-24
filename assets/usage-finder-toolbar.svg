@@ -9,7 +9,7 @@
     </filter>
   </defs>
   <rect width="920" height="420" rx="28" fill="url(#bg)"/>
-  <text x="46" y="62" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="30" font-weight="700" fill="#111827">方式二：按住 Command，拖到 Finder 工具栏</text>
+  <text x="46" y="62" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="30" font-weight="700" fill="#111827">按住 Command，拖到 Finder 工具栏</text>
   <text x="46" y="102" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" fill="#57534e">推荐重度 Finder 用户使用。进入任意项目文件夹后，点工具栏图标即可在该目录启动 Codex。</text>
 
   <rect x="72" y="145" width="610" height="210" rx="22" fill="#ffffff" filter="url(#shadow)"/>
