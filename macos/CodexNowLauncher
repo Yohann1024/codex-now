@@ -5,6 +5,14 @@
 TARGET_DIR="$1"
 LAST_DIR_FILE="$HOME/.codex-now-last-dir"
 CODEX_COMMAND='codex --dangerously-bypass-approvals-and-sandbox'
+LOG_DIR="$HOME/Library/Logs/Codex Now"
+LOG_FILE="$LOG_DIR/launcher.log"
+AUTO_CONFIRM_DELAY="${CODEX_NOW_CONFIRM_DELAY:-2.5}"
+
+log() {
+    mkdir -p "$LOG_DIR"
+    printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" >> "$LOG_FILE"
+}
 
 source_shell_config() {
     for config_file in "$HOME/.zshrc" "$HOME/.zprofile" "$HOME/.bashrc" "$HOME/.bash_profile"; do
@@ -35,19 +43,25 @@ finder_front_directory() {
 }
 
 resolve_target_dir() {
+    log "launch start: raw_arg=$TARGET_DIR"
+
     if [ -z "$TARGET_DIR" ]; then
         TARGET_DIR=$(finder_front_directory)
+        log "finder front directory: $TARGET_DIR"
     fi
 
     if [ -z "$TARGET_DIR" ] && [ -f "$LAST_DIR_FILE" ]; then
         TARGET_DIR=$(cat "$LAST_DIR_FILE")
+        log "fallback last directory: $TARGET_DIR"
     fi
 
     if [ -z "$TARGET_DIR" ]; then
         TARGET_DIR="$HOME"
+        log "fallback home directory: $TARGET_DIR"
     fi
 
     if [ ! -d "$TARGET_DIR" ]; then
+        log "error: target directory does not exist: $TARGET_DIR"
         osascript -e "display alert \"Codex Now Error\" message \"Directory '$TARGET_DIR' does not exist.\"" >/dev/null 2>&1 || true
         exit 1
     fi
@@ -57,25 +71,30 @@ resolve_target_dir() {
 
 ensure_codex_exists() {
     if command -v codex >/dev/null 2>&1; then
+        log "codex path: $(command -v codex)"
         return 0
     fi
 
+    log "error: codex not found on PATH=$PATH"
     osascript -e "display alert \"Codex CLI Not Found\" message \"Could not find 'codex' on PATH. Please install Codex CLI or make sure your shell config exposes it.\"" >/dev/null 2>&1 || true
     exit 1
 }
 
 open_terminal_and_run_codex() {
-    osascript <<EOF2
+    log "terminal command: cd '$TARGET_DIR' && $CODEX_COMMAND"
+    log "auto confirm delay: ${AUTO_CONFIRM_DELAY}s"
+    local osascript_output
+    osascript_output=$(osascript <<EOF2 2>&1
 tell application "Terminal"
     activate
     do script "cd " & quoted form of "$TARGET_DIR" & " && $CODEX_COMMAND"
-    delay 2
-    tell application "System Events"
-        keystroke "1"
-        keystroke return
-    end tell
+    delay $AUTO_CONFIRM_DELAY
+    do script "1" in selected tab of front window
 end tell
 EOF2
+)
+    local osascript_status=$?
+    log "terminal confirm sent via Terminal do script: status=$osascript_status output=$osascript_output"
 }
 
 source_shell_config

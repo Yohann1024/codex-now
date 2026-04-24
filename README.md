@@ -69,6 +69,20 @@ rm -rf "/Applications/Codex Now.app"
 rm -f ~/.codex-now-last-dir
 ```
 
+## 调试
+
+如果偶尔没有自动确认，查看日志：
+
+```bash
+tail -n 80 "$HOME/Library/Logs/Codex Now/launcher.log"
+```
+
+默认会在启动 Codex 后等待 2.5 秒再输入 `1`。如果你的机器或网络较慢，可以调大：
+
+```bash
+CODEX_NOW_CONFIRM_DELAY=4 open -a "Codex Now"
+```
+
 ## License
 
 MIT
