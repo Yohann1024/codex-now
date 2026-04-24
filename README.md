@@ -33,14 +33,31 @@ cd codex-now
 
 ## 使用
 
-1. 打开 Finder，并进入你想运行 Codex 的项目文件夹。
-2. 点击 `/Applications/Codex Now.app`。
-3. Terminal 会在该目录打开，并自动运行 Codex。
+安装完成后，不建议每次都去 `/Applications` 里双击。更顺手的做法是把 `Codex Now.app` 固定到 Dock，或者放到 Finder 工具栏。
 
-你也可以：
+### 方式一：拖到 Dock
 
-- 把 `Codex Now.app` 拖到 Dock
-- 按住 Command，把 `Codex Now.app` 拖到 Finder 工具栏
+![把 Codex Now 拖到 Dock](assets/usage-dock.svg)
+
+1. 打开 `/Applications`。
+2. 找到 `Codex Now.app`。
+3. 把 `Codex Now.app` 拖到 Dock。
+4. 之后使用时，先打开 Finder 并进入你想运行 Codex 的项目文件夹。
+5. 点击 Dock 里的 `Codex Now` 图标。
+6. Terminal 会在当前 Finder 文件夹打开，并自动运行 `codex --dangerously-bypass-approvals-and-sandbox`。
+
+### 方式二：按住 Command，拖到 Finder 工具栏
+
+![把 Codex Now 拖到 Finder 工具栏](assets/usage-finder-toolbar.svg)
+
+1. 打开 `/Applications`。
+2. 找到 `Codex Now.app`。
+3. 按住键盘上的 `Command` 键。
+4. 在按住 `Command` 的同时，把 `Codex Now.app` 拖到 Finder 窗口顶部工具栏。
+5. 之后进入任何项目文件夹时，直接点击 Finder 工具栏里的 `Codex Now` 图标。
+6. Terminal 会在这个 Finder 文件夹中打开，并自动运行 Codex。
+
+这个方式最接近“在当前文件夹启动 Codex”的体验：先进入项目目录，再点 Finder 工具栏图标即可。
 
 ## 前置要求
 

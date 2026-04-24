@@ -1,0 +1,38 @@
+<svg width="920" height="420" viewBox="0 0 920 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Command drag Codex Now to Finder toolbar">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffbeb"/>
+      <stop offset="1" stop-color="#fef3c7"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#78350f" flood-opacity="0.14"/>
+    </filter>
+  </defs>
+  <rect width="920" height="420" rx="28" fill="url(#bg)"/>
+  <text x="46" y="62" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="30" font-weight="700" fill="#111827">方式二：按住 Command，拖到 Finder 工具栏</text>
+  <text x="46" y="102" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" fill="#57534e">推荐重度 Finder 用户使用。进入任意项目文件夹后，点工具栏图标即可在该目录启动 Codex。</text>
+
+  <rect x="72" y="145" width="610" height="210" rx="22" fill="#ffffff" filter="url(#shadow)"/>
+  <rect x="72" y="145" width="610" height="54" rx="22" fill="#f1f5f9"/>
+  <circle cx="106" cy="172" r="8" fill="#ef4444"/>
+  <circle cx="132" cy="172" r="8" fill="#f59e0b"/>
+  <circle cx="158" cy="172" r="8" fill="#22c55e"/>
+  <rect x="210" y="160" width="260" height="25" rx="12" fill="#e2e8f0"/>
+  <text x="235" y="179" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="14" fill="#475569">Project Folder</text>
+
+  <circle cx="585" cy="172" r="20" fill="#111827"/>
+  <text x="585" y="180" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="19" font-weight="800" fill="#ffffff">C</text>
+  <text x="533" y="218" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#111827">工具栏图标</text>
+
+  <rect x="108" y="232" width="130" height="22" rx="8" fill="#cbd5e1"/>
+  <rect x="108" y="270" width="210" height="18" rx="8" fill="#e2e8f0"/>
+  <rect x="108" y="302" width="180" height="18" rx="8" fill="#e2e8f0"/>
+  <rect x="360" y="248" width="260" height="72" rx="18" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+  <text x="390" y="292" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#1d4ed8">当前 Finder 目录</text>
+
+  <rect x="724" y="180" width="118" height="76" rx="20" fill="#111827" filter="url(#shadow)"/>
+  <text x="783" y="226" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="28" font-weight="800" fill="#ffffff">⌘</text>
+  <text x="724" y="288" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#92400e">按住 Command</text>
+  <path d="M724 218 C680 198 653 182 612 174" fill="none" stroke="#f97316" stroke-width="8" stroke-linecap="round"/>
+  <path d="M634 161 L602 173 L629 194" fill="none" stroke="#f97316" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
