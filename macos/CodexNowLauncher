@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# Codex Now: open Terminal in the current Finder folder and run Codex CLI.
+
+TARGET_DIR="$1"
+LAST_DIR_FILE="$HOME/.codex-now-last-dir"
+CODEX_COMMAND='codex --dangerously-bypass-approvals-and-sandbox'
+
+source_shell_config() {
+    for config_file in "$HOME/.zshrc" "$HOME/.zprofile" "$HOME/.bashrc" "$HOME/.bash_profile"; do
+        if [ -f "$config_file" ]; then
+            # shellcheck source=/dev/null
+            source "$config_file" >/dev/null 2>&1 || true
+        fi
+    done
+
+    export PATH="$HOME/.npm-global/bin:$HOME/.npm/bin:$HOME/Library/pnpm:$HOME/.yarn/bin:$HOME/.local/bin:$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/share/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+
+    if [ -d "$HOME/.nvm" ]; then
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" >/dev/null 2>&1 || true
+    fi
+}
+
+finder_front_directory() {
+    osascript -e '
+        tell application "Finder"
+            try
+                return POSIX path of (target of front window as alias)
+            on error
+                return ""
+            end try
+        end tell
+    ' 2>/dev/null
+}
+
+resolve_target_dir() {
+    if [ -z "$TARGET_DIR" ]; then
+        TARGET_DIR=$(finder_front_directory)
+    fi
+
+    if [ -z "$TARGET_DIR" ] && [ -f "$LAST_DIR_FILE" ]; then
+        TARGET_DIR=$(cat "$LAST_DIR_FILE")
+    fi
+
+    if [ -z "$TARGET_DIR" ]; then
+        TARGET_DIR="$HOME"
+    fi
+
+    if [ ! -d "$TARGET_DIR" ]; then
+        osascript -e "display alert \"Codex Now Error\" message \"Directory '$TARGET_DIR' does not exist.\"" >/dev/null 2>&1 || true
+        exit 1
+    fi
+
+    printf '%s\n' "$TARGET_DIR" > "$LAST_DIR_FILE"
+}
+
+ensure_codex_exists() {
+    if command -v codex >/dev/null 2>&1; then
+        return 0
+    fi
+
+    osascript -e "display alert \"Codex CLI Not Found\" message \"Could not find 'codex' on PATH. Please install Codex CLI or make sure your shell config exposes it.\"" >/dev/null 2>&1 || true
+    exit 1
+}
+
+open_terminal_and_run_codex() {
+    osascript <<EOF2
+tell application "Terminal"
+    activate
+    do script "cd " & quoted form of "$TARGET_DIR" & " && $CODEX_COMMAND"
+    delay 2
+    tell application "System Events"
+        keystroke "1"
+        keystroke return
+    end tell
+end tell
+EOF2
+}
+
+source_shell_config
+resolve_target_dir
+ensure_codex_exists
+open_terminal_and_run_codex
