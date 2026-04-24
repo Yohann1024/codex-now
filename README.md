@@ -77,10 +77,10 @@ rm -f ~/.codex-now-last-dir
 tail -n 80 "$HOME/Library/Logs/Codex Now/launcher.log"
 ```
 
-默认会在启动 Codex 后最多等待 5 秒，并检测到目录信任提示后立刻输入 `1`。如果你的机器或网络较慢，可以调大：
+默认会在启动 Codex 后等待 0.3 秒并向新建 Terminal tab 输入 `1`。如果你的机器较慢，可以调大：
 
 ```bash
-CODEX_NOW_CONFIRM_TIMEOUT=8 open -a "Codex Now"
+CODEX_NOW_CONFIRM_DELAY=1 open -a "Codex Now"
 ```
 
 ## License
