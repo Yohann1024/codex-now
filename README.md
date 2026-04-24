@@ -8,6 +8,25 @@ codex --dangerously-bypass-approvals-and-sandbox
 
 > Inspired by [Claude Code Now](https://github.com/orange2ai/claude-code-now), but built for OpenAI Codex CLI.
 
+## 它解决什么问题？
+
+以前想在某个项目里启动 Codex，通常要这样做：
+
+1. 先建好或找到项目文件夹。
+2. 打开 Finder，进入这个文件夹。
+3. 再打开 Terminal。
+4. 手动 `cd` 到项目目录。
+5. 输入 `codex --dangerously-bypass-approvals-and-sandbox`。
+6. 遇到目录信任提示时，再手动选择 `1. Yes, continue`。
+
+Codex Now 把这些步骤压缩成一次点击：
+
+1. 在 Finder 里进入你要工作的项目文件夹。
+2. 点击 Dock 或 Finder 工具栏里的 `Codex Now` 图标。
+3. Terminal 自动在当前文件夹打开，并自动启动 Codex。
+
+适合经常在不同项目目录之间切换、懒得反复打开终端和输入命令的人。
+
 ## 功能
 
 - 从当前 Finder 窗口所在目录启动
