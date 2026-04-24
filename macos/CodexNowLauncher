@@ -7,7 +7,8 @@ LAST_DIR_FILE="$HOME/.codex-now-last-dir"
 CODEX_COMMAND='codex --dangerously-bypass-approvals-and-sandbox'
 LOG_DIR="$HOME/Library/Logs/Codex Now"
 LOG_FILE="$LOG_DIR/launcher.log"
-AUTO_CONFIRM_DELAY="${CODEX_NOW_CONFIRM_DELAY:-0.25}"
+AUTO_CONFIRM_TIMEOUT="${CODEX_NOW_CONFIRM_TIMEOUT:-5}"
+AUTO_CONFIRM_INTERVAL="${CODEX_NOW_CONFIRM_INTERVAL:-0.1}"
 
 log() {
     mkdir -p "$LOG_DIR"
@@ -85,19 +86,33 @@ ensure_codex_exists() {
 
 open_terminal_and_run_codex() {
     log "terminal command: cd '$TARGET_DIR' && $CODEX_COMMAND"
-    log "auto confirm delay: ${AUTO_CONFIRM_DELAY}s"
+    log "auto confirm timeout: ${AUTO_CONFIRM_TIMEOUT}s interval: ${AUTO_CONFIRM_INTERVAL}s"
     local osascript_output
     osascript_output=$(osascript <<EOF2 2>&1
 tell application "Terminal"
     activate
     set codexTab to do script "cd " & quoted form of "$TARGET_DIR" & " && $CODEX_COMMAND"
-    delay $AUTO_CONFIRM_DELAY
-    do script "1" in codexTab
+    set maxChecks to ($AUTO_CONFIRM_TIMEOUT / $AUTO_CONFIRM_INTERVAL) as integer
+    set didConfirm to false
+    repeat with checkIndex from 1 to maxChecks
+        delay $AUTO_CONFIRM_INTERVAL
+        set tabContents to contents of codexTab
+        if tabContents contains "Do you trust" or tabContents contains "Yes, continue" then
+            do script "1" in codexTab
+            set didConfirm to true
+            exit repeat
+        end if
+    end repeat
+    if didConfirm then
+        return "confirmed trust prompt"
+    else
+        return "trust prompt not detected"
+    end if
 end tell
 EOF2
 )
     local osascript_status=$?
-    log "terminal confirm sent via Terminal do script: status=$osascript_status output=$osascript_output"
+    log "terminal confirm result: status=$osascript_status output=$osascript_output"
 }
 
 source_shell_config
