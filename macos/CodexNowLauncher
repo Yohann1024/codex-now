@@ -7,7 +7,7 @@ LAST_DIR_FILE="$HOME/.codex-now-last-dir"
 CODEX_COMMAND='codex --dangerously-bypass-approvals-and-sandbox'
 LOG_DIR="$HOME/Library/Logs/Codex Now"
 LOG_FILE="$LOG_DIR/launcher.log"
-AUTO_CONFIRM_DELAY="${CODEX_NOW_CONFIRM_DELAY:-2.5}"
+AUTO_CONFIRM_DELAY="${CODEX_NOW_CONFIRM_DELAY:-0.25}"
 
 log() {
     mkdir -p "$LOG_DIR"
